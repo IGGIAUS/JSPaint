@@ -1,11 +1,31 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src = 'layerControl.js'></script>
 	</head>
-	<body>
+	<body onload = 'layerInitialisation();'>
 		<h1>JS Paint</h1>
-		<canvas id = 'canvas' width = '800' height = '480'>
-			Your Browser Does not Support HTML5's canvas tag.
-		</canvas>
+		<table id = 'holdingTable'>
+			<tr><td><!--------------------------------------------------------------------TOOL BOX & COLOUR SELECTOR-->
+				<table id = 'toolbox'>
+					<tr>
+				
+				</table>
+				<canvas id = 'colourPicker' width = '150' height = '150'>
+					Colour Picker: Error Occued
+				</canvas>
+			</td><td><!-------------------------------------------------------------------CANVAS-->
+			<canvas id = 'canvas' width = '800' height = '480'>
+				Your Browser Does not Support HTML5's canvas tag.
+			</canvas>
+			</td><td><!-------------------------------------------------------------------LAYERS-->
+				<div id = 'layerHolder'><!-----------------------------------Layer List-->
+				
+				</div>
+				<div id = 'layerInfo'><!-------------------------------------Layer Info-->
+					<table class = 'bold textCenter' id = 'layerTools'><tr><td class = 'button' onclick = 'addLayer();'><img class = 'toolBarIMG' src = 'images/add.png'></td><td class = 'button' onclick = 'removeLayer();'><img class = 'toolBarIMG' src = 'images/x.png'></td><td class = 'button' onclick = 'moveUp();'><img class = 'toolBarIMG' src = 'images/uArrow.png'></td><td class = 'button' onclick = 'moveDown();'><img class = 'toolBarIMG' src = 'images/dArrow.png'></td><tr></table>
+				</div>
+			</td></tr>
+		</table>
 	</body>
 </html>
