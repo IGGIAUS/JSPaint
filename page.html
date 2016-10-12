@@ -2,8 +2,15 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src = 'layerControl.js'></script>
+		<script src = 'colourPicker.js'></script>
+		<script>
+			function initialiseAll(){
+				layerInitialisation();
+				colourPickerInitialisation();
+			}
+		</script>
 	</head>
-	<body onload = 'layerInitialisation();'>
+	<body onload = 'initialiseAll();'>
 		<h1>JS Paint</h1>
 		<table id = 'holdingTable'>
 			<tr><td><!--------------------------------------------------------------------TOOL BOX & COLOUR SELECTOR-->
