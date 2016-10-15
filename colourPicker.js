@@ -32,16 +32,19 @@ function colourPickerInitialisation(){
 	colourPicker.canvas.onmouseleave = function(){
 		colourPicker.mouseDown = false;
 	}
+	//Clears canvas
 	colourPicker.clear = function(){
 		var context = colourPicker.canvas.getContext("2d");
 		context.fillStyle= "#FFFFFF";
 		context.fillRect(0,0, colourPicker.canvas.width, colourPicker.canvas.height);
 	}
+	//Clears canvas and redraws it.
 	colourPicker.drawAll = function(){
 		colourPicker.clear();
 		colourPicker.drawColourPicker();
 		colourPicker.drawColours();
 	}
+	//Draws sliders
 	colourPicker.drawColourPicker = function(){
 		var context = colourPicker.canvas.getContext("2d");
 		var colourHeight = 20;
@@ -126,6 +129,7 @@ function colourPickerInitialisation(){
 			context.stroke();
 		}
 	}
+	
 	colourPicker.drawColours = function(){
 		var context = colourPicker.canvas.getContext("2d");
 		context.lineWidth = 2;
@@ -144,7 +148,7 @@ function colourPickerInitialisation(){
 		}
 		
 	}
-	//Create Function to handle mouse Down on canvas
+	//Create Function to handle mouse Down on canvas. Effects slider, and pallet.
 	colourPicker.handlemouseDown = function(x, y){
 		var rect = colourPicker.canvas.getBoundingClientRect();
 		x -= rect.left;
