@@ -9,9 +9,11 @@ body{
 #toolbox{
 	border: thin solid black;
 	height:328px;	/* height = 480(starting) - 2(padding) */
-	width:80px;
+	width:40px;
 	margin-left:auto;
 	margin-bottom:2px;
+	border-spacing: 0px;
+    border-collapse: collapsed;
 }
 #colourPicker{
 	border: thin solid black;

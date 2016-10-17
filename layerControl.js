@@ -11,7 +11,8 @@ function swapObjects(array, indexA, indexB) {
 
 
 function layerInitialisation(){
-	imgLayers.push({"Name":"Background"});
+	
+	imgLayers.push(new_Layer("Background"));
 	layerDisplay()
 }
 
@@ -26,16 +27,26 @@ function layerDisplay(){
 	}
 }
 
-function addLayer(){
-	imgLayers.push({"Name":"Layer"+nextLayerID})
+function addLayer(name){
+	if (name == undefined){
+		imgLayers.push(new_Layer("Layer"+nextLayerID));
+	}else{
+		imgLayers.push(new_Layer(name));
+	}
 	nextLayerID++;
 	layerDisplay();
+	canvasEditor.drawAll();
+}
+function new_Layer(name){
+	var context = canvasEditor.canvas.getContext("2d");
+	return {"Name":name, "img": context.createImageData(canvasEditor.canvas.width,canvasEditor.canvas.height)}
 }
 function removeLayer(){
 	if(confirm("Are You sure you sure you want to delete Layer: "+ imgLayers[selectedLayer].Name)){
 		imgLayers.splice(selectedLayer, 1);
 	}
 	layerDisplay();
+	canvasEditor.drawAll();
 }
 function moveUp(){
 	if (selectedLayer < imgLayers.length-1){
@@ -43,6 +54,7 @@ function moveUp(){
 		selectedLayer+=1;
 	}
 	layerDisplay();
+	canvasEditor.drawAll();
 }
 function moveDown(){
 	if (selectedLayer > 0){
@@ -50,6 +62,7 @@ function moveDown(){
 		selectedLayer-=1;
 	}
 	layerDisplay();
+	canvasEditor.drawAll();
 }
 
 function selectLayer(layerID){
