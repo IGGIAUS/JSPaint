@@ -10,6 +10,7 @@
 				canvasEditorInitialisation();
 				colourPickerInitialisation();
 				layerInitialisation();
+				toolBoxInitialisation();
 			}
 			
 		</script>
@@ -18,8 +19,9 @@
 		<h1>JS Paint</h1>
 		<table id = 'holdingTable'>
 			<tr><td><!--------------------------------------------------------------------TOOL BOX & COLOUR SELECTOR-->
+				
 				<table id = 'toolbox'>
-					<tr><td id = 'tool0' class = 'button' onclick = 'selectTool(0);'><img src ='images/pensil.png' style = 'width:20px;height:20px;' ></td><td class = 'button'><img src ='images/fill.png' style = 'width:20px;height:20px;' ></td></tr>
+					<tr><td id = 'tool0' class = 'button' onclick = 'selectTool(0);'><img src ='images/pensil.png' style = 'width:20px;height:20px;' ></td><td id = 'tool1' class = 'button' onclick = 'selectTool(1);'><img src ='images/fill.png' style = 'width:20px;height:20px;' ></td></tr>
 					<tr style = 'height:100%;'><td></td><td></td></tr>
 				
 				</table>
@@ -27,6 +29,9 @@
 					Colour Picker: Error Occued
 				</canvas>
 			</td><td><!-------------------------------------------------------------------CANVAS-->
+			<div id = 'toolOptions'>
+				
+			</div>
 			<canvas id = 'canvas' width = '800' height = '480'>
 				Your Browser Does not Support HTML5's canvas tag.
 			</canvas>

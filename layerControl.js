@@ -39,7 +39,7 @@ function addLayer(name){
 }
 function new_Layer(name){
 	var context = canvasEditor.canvas.getContext("2d");
-	return {"Name":name, "img": context.createImageData(canvasEditor.canvas.width,canvasEditor.canvas.height)}
+	return {"Name":name, "img": context.createImageData(canvasEditor.canvas.width,canvasEditor.canvas.height), "empty":function(){this.img = context.createImageData(canvasEditor.canvas.width,canvasEditor.canvas.height);}}
 }
 function removeLayer(){
 	if(confirm("Are You sure you sure you want to delete Layer: "+ imgLayers[selectedLayer].Name)){

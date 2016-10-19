@@ -8,12 +8,25 @@ body{
 }
 #toolbox{
 	border: thin solid black;
-	height:328px;	/* height = 480(starting) - 2(padding) */
+	height:359px;	/* height = 480(starting) - 2(padding) - 150 (colors) */
 	width:40px;
 	margin-left:auto;
 	margin-bottom:2px;
 	border-spacing: 0px;
     border-collapse: collapsed;
+}
+#toolOptions{
+	/*display: table-cell;*/
+    vertical-align: middle;
+	border: thin solid black;
+	margin-bottom:4px;
+	height:25px;
+	max-width:800px;
+	vertical-align:top;
+}
+#toolOptions input[type="range"]{
+	width: 100px;
+	vertical-align: middle;
 }
 #colourPicker{
 	border: thin solid black;
@@ -23,7 +36,7 @@ body{
 }
 #layerHolder{
 	border: thin solid black;
-	height:326px;	/* height = 480(starting) - 2(padding) - 2(extra borders)*/
+	height:357px;	/* height = 480(starting) - 2(padding) - 2(extra borders) + 26 (options)*/
 	width:150px;
 	margin-bottom:2px;
 	overflow-y:scroll;
@@ -53,8 +66,11 @@ body{
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5ebee', endColorstr='#d7dee3',GradientType=0 ); /* IE6-9 */
 
 }
-.button:hover{
+.button:hover, .button.selected:hover{
 	background:#a6a6a6;
+}
+.button.selected{
+	background:#bfbfbf;
 }
 .toolBarIMG{
 	width:15px;
