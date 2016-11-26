@@ -1,5 +1,20 @@
 var canvasEditor = {};
 
+function min(num1, num2){
+	if (num1 < num2){
+		return num1;
+	}else{
+		return num2;
+	}
+}
+function max(num1, num2){
+	if (num1 > num2){
+		return num1;
+	}else{
+		return num2;
+	}
+}
+
 function canvasEditorInitialisation(){
 	//Get Canvas
 	canvasEditor.canvas = document.getElementById("canvas");
@@ -57,70 +72,47 @@ function canvasEditorInitialisation(){
 		//Do diffrent things depending on mode
 		switch (toolBox[selectedTool].tool){
 			case "pensil":
-				//if (canvasEditor.pastX != undefined && canvasEditor.pastY != undefined){
-					var size = (toolBox[selectedTool].Size / 2);
-					var colour =  colourPicker.getCurrentRGB();
-					/*
+				var size = (toolBox[selectedTool].Size / 2);
+				var colour =  colourPicker.getCurrentRGB();
+				if (canvasEditor.pastX != undefined && canvasEditor.pastY != undefined){
 					//Draw line between pencil reads
 					//Get distances
 					var xDist = x - canvasEditor.pastX;
 					var yDist = y - canvasEditor.pastY;
 					//get lowest number of steps
-					var xStep;
-					var yStep;
-					if (Math.abs(xDist) > Math.abs(yDist)){
-						xStep = 1;
-						yStep = yDist/xDist;
-					}else if (Math.abs(xDist) < Math.abs(yDist)){
-						yStep = 1;
-						xStep = xDist/yDist;
-					}else{
-						xStep = 1;
-						yStep = 1;
-					}
-					//create condition functions
-					var xCon;
-					if (canvasEditor.pastX <= x){
-						xCon = function(pastX, x){
-							return (pastX < x);
-						}
-					}else{
-						xCon = function(pastX, x){
-							return (pastX > x);
-						}
-					}
-					var yCon;
-					if (canvasEditor.pastY <= y){
-						yCon = function(pastY, y){
-							return (pastY < y);
-						}
-					}else{
-						yCon = function(pastY, y){
-							return (pastY > y);
-						}
-					}
-					while (xCon(canvasEditor.pastX, x) && yCon(canvasEditor.pastY, y)){
-						canvasEditor.pastX += xStep;
-						canvasEditor.pastY += yStep;
-						for (var tx = -size; tx <= size; tx++){
-							for (var ty = -size; ty <= size; ty++){
-								canvasEditor.colourPixel(Math.round(canvasEditor.pastX + tx), Math.round(canvasEditor.pastY + ty),colour);
+					var steps = min(Math.abs(xDist), Math.abs(yDist));
+					if (steps < 1)
+						steps = max(Math.abs(xDist), Math.abs(yDist));
+					if (steps > 0){
+						var xStep = xDist/steps;
+						var yStep = yDist/steps;
+						var cx = canvasEditor.pastX;
+						var cy = canvasEditor.pastY;
+						for (var i =0; i< steps; i++){
+							cx += xStep;
+							cy += yStep;
+							//Draw new position
+							for (var tx = -size; tx <= size; tx++){
+								for (var ty = -size; ty <= size; ty++){
+									canvasEditor.colourPixel(Math.round(cx + tx), Math.round(cy + ty),colour);
+								}
 							}
 						}
 					}
-				}else{*/
+				}else{
 					for (var tx = -size; tx <= size; tx++){
 						for (var ty = -size; ty <= size; ty++){
 							canvasEditor.colourPixel(Math.round(x + tx), Math.round(y + ty),colour);
 						}
 					}
-				/*}
+				}
 				canvasEditor.pastX = x;
-				canvasEditor.pastY = y;*/
+				canvasEditor.pastY = y;
 				break;
 			case "fill":
-				/*
-				//Treashhold implementation
+				/*Recisive function quickly caused overflow errors, needs better option*/
+				
+				/*Treashhold implementation
 				var GrayScale = (Red * 0.3 + Green * 0.59 + Blue * 0.11)/3;
 				gray[0] = GrayScale;
 				gray[1] = GrayScale;

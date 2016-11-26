@@ -1,2 +1,2 @@
 # JSPaint
-Playing around with HTML5 canvas 
+Testing the limits of the HTML5 Cancas and javascript. 
