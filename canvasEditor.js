@@ -112,35 +112,41 @@ function canvasEditorInitialisation(){
 			case "fill":
 				/*Recisive function quickly caused overflow errors, needs better option*/
 				
-				/*Treashhold implementation
+				/*Treashhold implementation TODO
 				var GrayScale = (Red * 0.3 + Green * 0.59 + Blue * 0.11)/3;
 				gray[0] = GrayScale;
 				gray[1] = GrayScale;
 				gray[2] = GrayScale;
-				gray[4] = GrayScale;
+				gray[4] = GrayScale; */				
+			
+				var startColour = canvasEditor.getPixelColour(x, y);
+				var endColour = colourPicker.getCurrentRGB();
 				
-				var fillFunc = function(fillFunc, greyColourFrom, colourTo, threshold, x , y){
-					//grey scale ago
-					
-				}*/
-				var fillFunc = function(fillFunc, greyColourFrom, colourTo, x, y){
-					var index = (x + (canvasEditor.canvas.width * y)) * 4
-					if (imgLayers[selectedLayer].img.data[index + 0] == greyColourFrom[0] && imgLayers[selectedLayer].img.data[index + 1] == greyColourFrom[1] && imgLayers[selectedLayer].img.data[index + 2] == greyColourFrom[2] && imgLayers[selectedLayer].img.data[index + 3] == greyColourFrom[3]){
-						canvasEditor.colourPixel(x, y,colourTo);
-						for (var tx = -1; tx < 2; tx++){
-							for (var ty = -1; ty < 2; ty++){
-								if (tx != 0 && ty != 0 && (x+tx) > -1 && (x+tx) < (canvasEditor.canvas.height + 1) && (y+ty) > -1 && (y+ty) < (canvasEditor.canvas.width + 1) ){
-									fillFunc(fillFunc, greyColourFrom, colourTo, x + tx, y + ty);
-								}
-							}
-						}
+				//Stack Used to simulate recustion
+				var stack = [{"x":x, "y":y, "step":0}];
+				
+				var curStep;
+				var newX;
+				var newY;
+				
+				while (stack.length > 0){
+					curStep = stack[stack.length-1].step;
+					newX = stack[stack.length-1].x + ((curStep % 3) -1);
+					newY = stack[stack.length-1].y + (Math.floor(curStep/3)-1)
+					stack[stack.length-1].step = ((curStep==3)?5:curStep+1);
+					//if colour of next pixel matches, change colour and add to stack
+					if (colourPicker.colourCompare(canvasEditor.getPixelColour(newX,newY), startColour)){
+						canvasEditor.colourPixel(newX, newY,endColour);
+						stack.push({"x":newX, "y":newY, "step":0})
+					}
+					//if pixel has fulfilled all dircetions pop off stack
+					if (stack[stack.length-1].step > 9){
+						stack.pop()
 					}
 				}
-				fillFunc(fillFunc, canvasEditor.getPixelColour(x, y),colourPicker.getCurrentRGB(), x, y)
+				
 				break;
-		}
-		
-		
+		}		
 		canvasEditor.drawAll();
 	}
 	canvasEditor.colourPixel = function(x,y, colour){

@@ -220,4 +220,10 @@ function colourPickerInitialisation(){
 		//Draw Canvas
 		colourPicker.drawAll();
 	};
+	colourPicker.colourCompare = function(colour1, colour2){
+		if (colour1[0] == colour2[0] &&  colour1[1] == colour2[1] &&  colour1[2] == colour2[2] &&  colour1[3] == colour2[3]){
+			return true;
+		}
+		return false;
+	}
 }
