@@ -213,6 +213,30 @@ function colourPickerInitialisation(){
 
 		return [ r * 255, g * 255, b * 255, a * 255];
 	}
+	colourPicker.setCurrentRGB = function(colour){
+		var r = colour[0]/255;
+		var g = colour[1]/255;
+		var b = colour[2]/255;
+		var a = colour[3]/255;
+		var max = Math.max(r, g, b), min = Math.min(r, g, b);
+		var h, s, l = (max + min) / 2;
+		if(max == min){
+			h = s = 0; // achromatic
+		}else{
+			var d = max - min;
+			s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+			switch(max){
+				case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+				case g: h = (b - r) / d + 2; break;
+				case b: h = (r - g) / d + 4; break;
+			}
+			h /= 6;
+			pallet[selectedColour].Hue = h * 360;
+			pallet[selectedColour].Saturation = s * 100;
+			pallet[selectedColour].Light = l * 100;
+			pallet[selectedColour].Opacity = a;
+		}		
+	}
 	//get Image
 	colourPicker.transparentcyStrip = new Image();
 	colourPicker.transparentcyStrip.src = "images/transparency.png";
@@ -226,4 +250,5 @@ function colourPickerInitialisation(){
 		}
 		return false;
 	}
+	
 }

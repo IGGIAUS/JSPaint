@@ -145,6 +145,11 @@ function canvasEditorInitialisation(){
 				}
 				
 				break;
+			case "pipette":
+				console.log(x,y)
+				colourPicker.setCurrentRGB(canvasEditor.getPixelColour(x,y));
+				colourPicker.drawAll();
+				break;
 		}		
 		canvasEditor.drawAll();
 	}
