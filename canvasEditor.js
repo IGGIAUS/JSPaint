@@ -134,7 +134,7 @@ function canvasEditorInitialisation(){
 					newY = stack[stack.length-1].y + (Math.floor(curStep/3)-1)
 					stack[stack.length-1].step = ((curStep==3)?5:curStep+1);
 					//if colour of next pixel matches, change colour and add to stack
-					if (colourPicker.colourCompare(canvasEditor.getPixelColour(newX,newY), startColour)){
+					if (colourPicker.colourRGBCompare(canvasEditor.getPixelColour(newX,newY), startColour)){
 						canvasEditor.colourPixel(newX, newY,endColour);
 						stack.push({"x":newX, "y":newY, "step":0})
 					}

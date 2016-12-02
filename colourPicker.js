@@ -221,7 +221,7 @@ function colourPickerInitialisation(){
 		var max = Math.max(r, g, b), min = Math.min(r, g, b);
 		var h, s, l = (max + min) / 2;
 		if(max == min){
-			h = 0;
+			h = pallet[selectedColour].Hue/360;
 			s = 0; // achromatic
 		}else{
 			var d = max - min;
@@ -245,8 +245,14 @@ function colourPickerInitialisation(){
 		//Draw Canvas
 		colourPicker.drawAll();
 	};
-	colourPicker.colourCompare = function(colour1, colour2){
+	colourPicker.colourRGBCompare = function(colour1, colour2){
 		if (colour1[0] == colour2[0] &&  colour1[1] == colour2[1] &&  colour1[2] == colour2[2] &&  colour1[3] == colour2[3]){
+			return true;
+		}
+		return false;
+	}
+	colourPicker.colourHSLCompare = function(colour1, colour2){
+		if (colour1.Hue == colour2.Hue &&  colour1.Saturation == colour2.Saturation &&  colour1.Light == colour2.Light &&  colour1.Opacity == colour2.Opacity){
 			return true;
 		}
 		return false;
