@@ -74,15 +74,20 @@ function canvasEditorInitialisation(){
 			case "pensil":
 				var size = (toolBox[selectedTool].Size / 2);
 				var colour =  colourPicker.getCurrentRGB();
-				if (canvasEditor.pastX != undefined && canvasEditor.pastY != undefined){
-					//Draw line between pencil reads
+				if (canvasEditor.pastX == undefined && canvasEditor.pastY == undefined){
+					//Draw First Click
+					for (var tx = -size; tx <= size; tx++){
+						for (var ty = -size; ty <= size; ty++){
+							canvasEditor.colourPixel(Math.round(x + tx), Math.round(y + ty),colour);
+						}
+					}
+				}else{
+					//Draw Lines between each possition read whist mouse down
 					//Get distances
 					var xDist = x - canvasEditor.pastX;
 					var yDist = y - canvasEditor.pastY;
-					//get lowest number of steps
-					var steps = min(Math.abs(xDist), Math.abs(yDist));
-					if (steps < 1)
-						steps = max(Math.abs(xDist), Math.abs(yDist));
+					//get most number of steps number of steps
+					steps = max(Math.abs(xDist), Math.abs(yDist));
 					if (steps > 0){
 						var xStep = xDist/steps;
 						var yStep = yDist/steps;
@@ -99,18 +104,12 @@ function canvasEditorInitialisation(){
 							}
 						}
 					}
-				}else{
-					for (var tx = -size; tx <= size; tx++){
-						for (var ty = -size; ty <= size; ty++){
-							canvasEditor.colourPixel(Math.round(x + tx), Math.round(y + ty),colour);
-						}
-					}
 				}
 				canvasEditor.pastX = x;
 				canvasEditor.pastY = y;
 				break;
 			case "fill":
-				/*Recisive function quickly caused overflow errors, needs better option*/
+				/*Recisive function quickly caused overflow errors*/
 				
 				/*Treashhold implementation TODO
 				var GrayScale = (Red * 0.3 + Green * 0.59 + Blue * 0.11)/3;
